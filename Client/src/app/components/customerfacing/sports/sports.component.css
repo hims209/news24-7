@@ -1,0 +1,46 @@
+h3 {
+  text-align: center;
+}
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}
+
+.title {
+  width: 200px;
+}
+.image-center {
+  text-align: center;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+
+body {
+    background-color: #eee;
+    font-family: 'Manrope', sans-serif
+}
+
+.news-card {
+    border-radius: 8px
+}
+
+.news-feed-image {
+    border-radius: 8px;
+    width: 100%
+}
+
+.date {
+    font-size: 12px
+}
+
+.username {
+    color: blue
+}
+
+.share {
+    color: blue
+}

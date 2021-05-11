@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+}
+th.mat-header-cell {
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.date {
+  width: 120px;
+}
+.title {
+  width: 200px;
+}
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}

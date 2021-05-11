@@ -1,0 +1,77 @@
+<!-- Display sport related news in table formate -->
+<h3>Sports Now</h3>
+<div class="container-fluid mt-3 mb-5">
+  <div class="row">
+    <input
+      class="form-control float-end"
+      style="width: 300px; margin: auto"
+      type="text"
+      placeholder="Search..."
+      (keyup)="applyFilter($event)"
+      #input
+    />
+  </div>
+
+  <div class="mat-elevation-z8 mt-3">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      class="table table-striped"
+    >
+      <ng-container matColumnDef="title">
+        <th class="title" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Title
+        </th>
+        <td class="title" mat-cell *matCellDef="let row">{{ row.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.description }} <a href="{{ row.url }}">Continue...</a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="publishDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Publish_Date</th>
+        <td mat-cell *matCellDef="let row">
+          {{ convertStringToDate(row.publishDate) | date }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="images">
+        <th mat-header-cell *matHeaderCellDef class="image-center">Images</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="d-flex">
+            <img
+              class="rounded"
+              style="height: auto; width: 300px"
+              src="{{ row.imageUrl }}"
+              alt="News_Images"
+            />
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
+    </table>
+
+    <div class="d-flex ms-1">
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+
+
+  <p style="font-size: small" class="m-1">
+    *to search by publish date use the format 'YYYY-MM-DD'
+  </p>
+</div>
+
+

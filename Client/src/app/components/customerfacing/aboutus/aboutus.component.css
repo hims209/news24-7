@@ -1,0 +1,36 @@
+#mapImage {
+  max-width: fit-content;
+  max-height: fit-content;
+}
+
+.border-space {
+  margin-left: 10px;
+  margin-right: 75px;
+  margin-top: 15px;
+}
+.border-p {
+  margin-left: 10px;
+  margin-right: 70px;
+  margin-top: 100px;
+}
+.div-top {
+  margin-top: 50px;
+}
+
+.content {
+  height: auto;
+}
+
+.map {
+  padding-top: 75px;
+  padding-left: 100px;
+  width: 400px;
+  height: 400px;
+  float: left;
+}
+
+.about {
+  float: right;
+  width: 700px;
+  height: 400px;
+}

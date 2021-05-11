@@ -1,0 +1,95 @@
+<!-- Contact us Form -->
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+<div class="row" style="width: 98%; margin: auto">
+  <div
+    class="u-align-left u-container-style u-image u-layout-cell u-right-cell u-size-28-lg u-size-28-xl u-size-31-md u-size-31-sm u-size-31-xs u-image-2"
+    id="body">
+    <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+      You're all set!! We will reply you ASAP!!
+      <button (click)="closeAlert()" type="button" class="btn-close" data-bs-dismiss="alert"
+        aria-label="Close"></button>
+    </div>
+
+
+    <div class="u-container-layout u-valign-middle u-container-layout-2" id="form">
+      <h3 class="display-4 text-center">Contact Us!</h3>
+
+      <div class="container">
+        <form
+          (ngSubmit)="f.form.valid && onSubmit()"
+          style="padding: 0"
+          source="email"
+          name="form"
+          #f="ngForm"
+          novalidate
+        >
+          <input type="hidden" id="siteId" name="siteId" value="81294" />
+          <input type="hidden" id="pageId" name="pageId" value="90025" />
+          <div class="fadeIn first">
+            <input
+              type="text"
+              placeholder="Enter your Name"
+              id="name"
+              name="name"
+              class="form-control form-control-lg"
+              [(ngModel)]="sndMessage.name"
+              required
+              #name="ngModel"
+            />
+            <div
+              *ngIf="f.submitted && name.invalid"
+              class="d-block invalid-feedback"
+            >
+              <div *ngIf="name.errors.required">Name is required.</div>
+            </div>
+          </div>
+          <div class="fadeIn second">
+            <input
+              type="email"
+              placeholder="Valid email address"
+              id="email"
+              name="email"
+              class=""
+              [(ngModel)]="sndMessage.email"
+              required
+              #email="ngModel"
+            />
+            <div
+              *ngIf="f.submitted && email.invalid"
+              class="d-block invalid-feedback"
+            >
+              <div *ngIf="email.errors.required">Email is required.</div>
+              <div *ngIf="email.errors.email">Not a valid email address.</div>
+            </div>
+          </div>
+          <div class="fadeIn third">
+            <textarea
+            type=text
+              placeholder="Enter your message"
+              rows="4"
+              cols="50"
+              id="message"
+              name="message"
+              class=""
+              [(ngModel)]="sndMessage.message"
+              required
+              #message="ngModel"
+            ></textarea>
+            <div
+              *ngIf="f.submitted && message.invalid"
+              class="d-block invalid-feedback"
+            >
+              <div *ngIf="message.errors.required">Message is required</div>
+            </div>
+          </div>
+          <input type="submit" class="fadeIn fourth" value="Submit">
+        
+          <input type="hidden" value="" name="recaptchaResponse" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>

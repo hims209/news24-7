@@ -1,0 +1,38 @@
+<!-- Chat box Component -->
+<div class="container-fluid main">
+  <div class="row">
+    <div class="col">
+      <ul class="list-group mt-2" id="msgList"></ul>
+      <div style="height: 75px"></div>
+    </div>
+  </div>
+  <div class="chat">
+    <div class="card" style="background-color: grey">
+      <div class="card-body">
+        <form id="msgForm">
+          <div class="row">
+            <div class="col-10">
+              <input
+                type="text"
+                id="msgBox"
+                class="form-control"
+                placeholder="message"
+                name="message"
+                [(ngModel)]="message"
+              />
+            </div>
+            <div class="col-2">
+              <button
+                class="button button1"
+                style="width: 200px; height: 300;"
+                (click)="SendMessage()"
+              >
+                send
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<!-- Link to stylesheet used in weather component -->
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<!-- Weather component -->
+<div class="container div-space" >
+    <div class="background" >
+        <!-- make div for circle for design -->
+        <div class="Circle1"></div>
+        <div class="Circle2"></div>
+        <div class="Circle3"></div>
+        <div class="content">
+            <h1 class="Condition"><i class="material-icons sun">wb_sunny</i> {{this.weather.weather[0].description}}
+            </h1>
+            <!-- by default weather api give temp in kelvin here it convert to the Celsius and display it -->
+            <h1 class="Temp">{{(this.weather.main.temp - 273.15) | number: '1.2-2'}} <span
+                    id="F">&#8451;</span></h1>
+            <h1 class="Location">Min : {{(this.weather.main.temp_min - 273.15) | number: '1.0-0'}}<!--{{(this.weather.main.temp_min - 273.15) * 9/5 + 32 | number: '1.0-0'}}-->
+                <span>&#8451;</span><br/>
+                Max :: {{(this.weather.main.temp_max - 273.15) | number: '1.0-0'}} <span>&#8451;</span>
+            </h1>
+            <h1 class="MinMaxTemp"><i class="material-icons locationIcon">place</i>
+                {{this.weather.name}},{{this.weather.sys.country}}</h1>
+        </div>
+    </div>

@@ -1,0 +1,28 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
+
+    <div class="fadeIn first">
+      <img src="https://www.freeiconspng.com/uploads/customers-icon-3.png" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form name="form" (ngSubmit)="f.form.valid && loginSubmit()" #f="ngForm" novalidate>
+      <!-- Username Input -->
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" #email="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" name="email" [(ngModel)]="login.email" required
+        email>
+
+        <div *ngIf="f.submitted && email.invalid" class="d-block invalid-feedback">
+        <div *ngIf="email.errors.email">This is not a valid email</div>
+        <div *ngIf="email.errors.required">Email address is required</div>
+        </div>
+      <!-- Password Input -->
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" #password="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" [(ngModel)]="login.password" required>
+      <div class="d-block invalid-feedback">{{ errorMsg }}</div>
+      <!-- Submit Button -->
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<!-- Registration Success modal -->
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+
+    <ng-template #registerConfirm let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          Registration Confirmation
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Congradulations! {{ newUser.name }} at {{ newUser.email }} is now a
+        registered account. Would you like to login?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="login()">
+          Ok
+        </button>
+      </div>
+    </ng-template>
+    <!-- On the fail of the registration it iwll open registerError -->
+    <ng-template #registerError let-modal>
+      <div class="modal-header" style="background-color: lightcoral">
+        <h4 class="modal-title" id="modal-basic-title">Registration Error</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{ errorFromServer }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss('Cross click')">
+          Ok
+        </button>
+      </div>
+    </ng-template>
+    <!-- Signup Form -->
+    <div class="register">
+      <div class="container">
+        <div class="row">
+          <div class="col-md- m-auto">
+            <h1 class="display-4 text-center">Sign Up</h1>
+            <p class="lead text-center">Create your account!</p>
+            <form name="form" (ngSubmit)="
+            f.form.valid && registerSubmit(registerConfirm, registerError, f)
+          " #f="ngForm" [mustMatch]="['password', 'password2']" novalidate>
+              <div class="fadeIn first">
+                <!-- Input name -->
+                <input class="form-control form-control-lg" type="text" #name="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" placeholder="Full Name" name="name"
+                  [(ngModel)]="register.name" required />
+                <div *ngIf="f.submitted && name.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="name.errors.required">
+                    Your full name is a required field
+                  </div>
+                </div>
+              </div>
+              <div class="fadeIn second">
+                <!-- Input email -->
+                <input class="form-control form-control-lg" type="email" name="email" placeholder="Email Address"
+                  #email="ngModel" [ngClass]="{
+                'is-invalid': f.submitted && email.invalid
+              }" name="email" [(ngModel)]="register.email" required email />
+
+                <div *ngIf="f.submitted && email.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="email.errors.required">Email address is required</div>
+                  <div *ngIf="email.errors.email">
+                    This is not a valid email address
+                  </div>
+                </div>
+              </div>
+              <div class="fadeIn third">
+                <!-- Input password -->
+                <input type="password" class="form-control form-control-lg" placeholder="Password" name="password"
+                  #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+                  [(ngModel)]="register.password" required minlength="6" />
+                <div *ngIf="f.submitted && password.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="password.errors.required">
+                    Password is a required field
+                  </div>
+                  <div *ngIf="password.errors.minlength">
+                    Password must be more than 6 characters
+                  </div>
+                </div>
+              </div>
+              <div class="fadeIn third">
+                <!-- input Confirm password -->
+                <input type="password" class="form-control form-control-lg" placeholder="Confirm Password"
+                  name="password2" [ngClass]="{ 'is-invalid': f.submitted && password2.invalid }" #password2="ngModel"
+                  [(ngModel)]="register.password2" required />
+                <div *ngIf="f.submitted && password2.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="password2.errors.required">
+                    You must confirm your password
+                  </div>
+                  <div *ngIf="password2.errors.mustMatch">
+                    Confirm password does not match
+                  </div>
+                </div>
+              </div>
+              <!-- Submit button -->
+              <input type="submit" class="fadeIn fourth" value="Register">
+
+              <!-- <button class="btn btn-success m-1">Register</button> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

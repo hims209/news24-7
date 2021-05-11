@@ -1,0 +1,263 @@
+<!-- This componenet is for update and delete opration on Admin side. -->
+<!-- Delete operation modal -->
+<ng-template #deleteConfirmModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Confirm News Deletion</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">Are you sure you want to delete this news story?</div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="delete()">
+      yes
+    </button>
+  </div>
+</ng-template>
+<!-- update operation modal -->
+<!-- It will fatch the data from database and display in editable components -->
+<ng-template #updateModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update Story</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="register">
+      <div class="container">
+        <div class="row">
+          <div class="col-md- m-auto">
+            <form name="form" (ngSubmit)="f.form.valid && edit()" #f="ngForm" novalidate>
+              <div class="form-group mb-3">
+                <input class="form-control" type="text" #title="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && title.invalid }" placeholder="Story Title" name="title"
+                  [(ngModel)]="newStory.title" required />
+                <div *ngIf="f.submitted && title.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="title.errors.required">A title is required</div>
+                </div>
+              </div>
+
+
+              <div class="form-group mb-3">
+                <input class="form-control" type="text" #title="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" placeholder="Story Type" name="type"
+                  [(ngModel)]="newStory.type" required />
+                <div *ngIf="f.submitted && type.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="type.errors.required">A Type is required</div>
+                </div>
+              </div>
+
+
+              <div class="form-group mb-3">
+                <textarea type="text" name="description" class="form-control" placeholder="Story Description"
+                  #description="ngModel" [ngClass]="{
+                    'is-invalid': f.submitted && description.invalid
+                  }" name="description" [(ngModel)]="newStory.description" spellcheck required></textarea>
+
+                <div *ngIf="f.submitted && description.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="description.errors.required">
+                    Description is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <input type="url" class="form-control" name="url" #url="ngModel" placeholder="https://example.com"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && url.invalid
+                  }" [(ngModel)]="newStory.url" required
+                  pattern="http(s?)(:\/\/)((www.)?)(([^.]+)\.)?([a-zA-z0-9\-_]+)(.com|.net|.gov|.org|.in)(\/[^\s]*)?" />
+                <div *ngIf="f.submitted && url.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="url.errors.required">Origin URL required</div>
+                  <div *ngIf="url.errors.pattern">URL is not valid</div>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <input type="url" class="form-control" name="imgUrl" #imgUrl="ngModel"
+                  placeholder="https://example.com/picture.jpg" [ngClass]="{
+                    'is-invalid': f.submitted && imgUrl.invalid
+                  }" [(ngModel)]="newStory.imageUrl"
+                  pattern="http(s?)(:\/\/)((www.)?)(([^.]+)\.)?([a-zA-z0-9\-_]+)(.com|.net|.gov|.org|.in)(\/[^\s]*)?"
+                  required />
+                <div *ngIf="f.submitted && imgUrl.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="imgUrl.errors.pattern">URL is not valid</div>
+                  <div *ngIf="imgUrl.errors.required">
+                    Image URL is required
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <input type="date" class="form-control" name="publishedAt" #publishedAt="ngModel" [ngClass]="{
+                    'is-invalid': f.submitted && publishedAt.invalid
+                  }" [(ngModel)]="newStory.publishDate" required />
+                <div *ngIf="f.submitted && publishedAt.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="publishedAt.errors.required">
+                    Publish date required
+                  </div>
+                </div>
+              </div>
+              <!-- on submit button it will update the data -->
+              <button type="submit" class="btn btn-success m-2">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- For adding new news story on the admin side.................... -->
+<ng-template #addModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Submit A New Story</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="register">
+      <div class="container">
+        <div class="row">
+          <div class="col-md- m-auto">
+            <form name="form" (ngSubmit)="f.form.valid && addStory()" #f="ngForm" novalidate>
+              <div class="form-group mb-3">
+                <input class="form-control" type="text" #title="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && title.invalid }" placeholder="Story Title" name="title"
+                  [(ngModel)]="newStory.title" required />
+                <div *ngIf="f.submitted && title.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="title.errors.required">A title is required</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <input class="form-control" type="text" #title="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" placeholder="Story Type" name="type"
+                  [(ngModel)]="newStory.type" required />
+                <div *ngIf="f.submitted && type.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="type.errors.required">A Type is required</div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <textarea type="text" name="description" class="form-control" placeholder="Story Description"
+                  #description="ngModel" [ngClass]="{
+                    'is-invalid': f.submitted && description.invalid
+                  }" name="description" [(ngModel)]="newStory.description" spellcheck required></textarea>
+
+                <div *ngIf="f.submitted && description.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="description.errors.required">
+                    Description is required
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group mb-3">
+                <input type="url" class="form-control" name="url" #url="ngModel" placeholder="https://example.com"
+                  [ngClass]="{
+                    'is-invalid': f.submitted && url.invalid
+                  }" [(ngModel)]="newStory.url" required
+                  pattern="http(s?)(:\/\/)((www.)?)(([^.]+)\.)?([a-zA-z0-9\-_]+)(.com|.net|.gov|.org|.in)(\/[^\s]*)?" />
+                <div *ngIf="f.submitted && url.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="url.errors.required">Origin URL required</div>
+                  <div *ngIf="url.errors.pattern">URL is not valid</div>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <input type="url" class="form-control" name="imgUrl" #imgUrl="ngModel"
+                  placeholder="https://example.com/picture.jpg" [ngClass]="{
+                    'is-invalid': f.submitted && imgUrl.invalid
+                  }" [(ngModel)]="newStory.imageUrl"
+                  pattern="http(s?)(:\/\/)((www.)?)(([^.]+)\.)?([a-zA-z0-9\-_]+)(.com|.net|.gov|.org|.in)(\/[^\s]*)?" />
+                <div *ngIf="f.submitted && imgUrl.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="imgUrl.errors.pattern">URL is not valid</div>
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <input type="date" class="form-control" name="publishedAt" #publishedAt="ngModel" [ngClass]="{
+                    'is-invalid': f.submitted && publishedAt.invalid
+                  }" [(ngModel)]="newStory.publishDate" required />
+                <div *ngIf="f.submitted && publishedAt.invalid" class="d-block invalid-feedback">
+                  <div *ngIf="publishedAt.errors.required">
+                    Publish date required
+                  </div>
+                </div>
+              </div>
+              
+              <button type="submit" class="btn btn-success m-2">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div class="container mt-3 mb-5">
+  <!-- On Click add story it will take data from the form and add it to the database....... -->
+  <div class="row">
+    <div class="col-4">
+      <button class="btn btn-primary float-start" (click)="onAddStory(addModal)">
+        Add Story
+      </button>
+    </div>
+    <div class="col-8">
+      <input class="form-control float-end" style="width: 300px" type="text" placeholder="Search..."
+        (keyup)="applyFilter($event)" #input />
+    </div>
+  </div>
+  <!-- Display the news data in the table formate......... -->
+  <div class="mat-elevation-z8 mt-3">
+    <table mat-table [dataSource]="dataSource" matSort class="table table-striped">
+      <ng-container matColumnDef="title">
+        <th class="title" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Title
+        </th>
+        <td class="title" mat-cell *matCellDef="let row">{{ row.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.description }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="publishDate">
+        <th class="date" mat-header-cell *matHeaderCellDef mat-sort-header>
+          Publish Date
+        </th>
+        <td class="date" mat-cell *matCellDef="let row">
+          {{ convertStringToDate(row.publishDate) | date }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let row">
+          <div class="d-flex">
+            <button class="btn btn-warning btn-sm m-1" (click)="onEdit(row._id, updateModal)">
+              &#9998;
+            </button>
+            <button class="btn btn-danger btn-sm m-1" (click)="onDelete(row._id, deleteConfirmModal)">
+              &#10006;
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
+    </table>
+    <div class="d-flex ms-1">
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+  <p style="font-size: small" class="m-1">
+    *to search by publish date use the format 'YYYY-MM-DD'
+  </p>
+</div>

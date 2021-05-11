@@ -1,0 +1,45 @@
+<!-- Importing the weather component -->
+<app-weather></app-weather>
+<!-- Importing the Image Slider Component -->
+<app-image-slider></app-image-slider>
+
+
+<!-- Recent news feed............... -->
+<div class="card mt-3 mb-3" style="width: 98%; margin: auto">
+  <div class="card-header">Recent News Feed</div>
+  <br />
+  <div
+    class="card mb-3"
+    *ngFor="let t of newsFeed | slice: 0:5; let index = index"
+  >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+          class="rounded m-1"
+          style="height: auto; width: 450px"
+          src="{{ newsFeed[index].imageUrl }}"
+          alt="..."
+        />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <div>
+            <h5 class="card-title">{{ newsFeed[index].title }}</h5>
+            <p class="card-text">
+              {{ newsFeed[index].description }}
+              <a href="{{ newsFeed[index].url }}"> Continue...</a>
+            </p>
+          </div>
+          <p class="card-text">
+            <small class="text-muted"
+              >Published On :
+              {{
+                convertStringToDate(newsFeed[index].publishDate) | date
+              }}</small
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
